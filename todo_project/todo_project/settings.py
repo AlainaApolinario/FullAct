@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-gc-gjp55_y6y8x#c7f^giex!scgdg6g+f^nn=oa*h*_z_ml!b#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['fullact.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 # Application definition
@@ -126,3 +127,10 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+import dj_database_url
+import os
+
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
