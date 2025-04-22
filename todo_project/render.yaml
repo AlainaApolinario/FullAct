@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: fullact
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py makemigrations
+      python manage.py migrate
+    startCommand: gunicorn todo_project.wsgi:application
