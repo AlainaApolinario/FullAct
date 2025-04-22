@@ -74,7 +74,14 @@ print("DATABASE_URL:", os.getenv('DATABASE_URL'))
 print("Loaded DATABASE_URL:", os.getenv('DATABASE_URL'))
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')  # Fallback to SQLite if DATABASE_URL is not set
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',  # This specifies PostgreSQL as the database engine
+        'NAME': os.environ.get('DB_NAME'),  # Use the environment variable for DB name
+        'USER': os.environ.get('DB_USER'),  # Use the environment variable for DB user
+        'PASSWORD': os.environ.get('DB_PASSWORD'),  # Use the environment variable for DB password
+        'HOST': os.environ.get('DB_HOST'),  # Use the environment variable for DB host
+        'PORT': '5432',  # PostgreSQL default port
+    }
 }
 
 # Password validation
