@@ -1,7 +1,13 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv  # Import dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load environment variables from .env file
+load_dotenv(dotenv_path=os.path.join(BASE_DIR, '.env'))
+print("ENV PATH:", os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -24,7 +30,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "todo",  # Custom app for the todo list
+    "todo",  # Add this line to register the todo app
     "corsheaders",  # CORS headers for API
 ]  # Ensure the last item has a comma if the list spans multiple lines
 
@@ -65,7 +71,6 @@ WSGI_APPLICATION = "todo_project.wsgi.application"
 # Database settings
 # Use PostgreSQL from Render, make sure the DATABASE_URL environment variable is set
 print("DATABASE_URL:", os.getenv('DATABASE_URL'))
-print("Loaded DATABASE_URL:", os.getenv('DATABASE_URL'))
 
 DATABASES = {
     'default': {
@@ -74,7 +79,7 @@ DATABASES = {
         'USER': os.environ.get('DB_USER'),  # Use the environment variable for DB user
         'PASSWORD': os.environ.get('DB_PASSWORD'),  # Use the environment variable for DB password
         'HOST': os.environ.get('DB_HOST'),  # Use the environment variable for DB host
-        'PORT': '5432',  # PostgreSQL default port
+        'PORT': os.environ.get('DB_PORT', '5432'),  # PostgreSQL default port
     }
 }
 
